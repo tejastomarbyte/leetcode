@@ -1,56 +1,41 @@
 class Solution {
 public:
-    //BFS check
-    // bool bipartite(int i,vector<vector<int>> &graph,vector<int> &color)
-    // {
-    //     queue<int> q;
-    //     q.push(i);
-    //     color[i]=1;
-    //     while(!q.empty())
-    //     {
-    //         int f=q.front();
-    //         q.pop();
-    //         for(auto it:graph[f])
-    //         {
-    //             if(color[it]==-1)
-    //             {   color[it]=1-color[f];
-    //                 q.push(it); 
-    //             }
-    //             else if(color[it]==color[i])
-    //                 return false;
-    //         }
-    //     }
-    //     return true;
-    // }
-     bool bipartite(int node , vector<vector<int>>& graph, vector <int> &color ){
-        color[node] = 0;
-        
+    
+    bool g(vector<vector<int>> &graph,int src,vector<int> &col)
+    {
         queue<int> q;
-        q.push(node);
+        q.push(src);
+        col[src]=1;
         
-        while(!q.empty()){
-            int currNode = q.front();
+        while(!q.empty())
+        {
+            int t=q.front();
             q.pop();
             
-            for(auto it : graph[currNode]){
-                if(color[it] == -1){
-                    color[it] = 1 - color[currNode];
+            for(auto it:graph[t])
+            {
+                if(col[it]==-1)
+                {
+                    col[it]=1-col[t];
                     q.push(it);
                 }
-                else if(color[it] == color[currNode]) return false;
+                else if(col[it]==col[t])
+                    return false;
             }
         }
-        
         return true;
     }
+    
     bool isBipartite(vector<vector<int>>& graph) {
-        vector<int> color(graph.size(),-1);
-        for(int i=0;i<graph.size();i++)
+        vector<int> col(graph.size(),-1);
+        for(int i=0;i<col.size();i++)
         {
-            if(color[i]==-1)
+            if(col[i]==-1)
             {
-                if(!bipartite(i,graph,color))
+                if(g(graph,i,col)==false)
+                {
                     return false;
+                }
             }
         }
         return true;
