@@ -9,22 +9,23 @@ using namespace std;
 
 class Solution{
 public:
-    int f(int r,int c,int n,vector<vector<int>> m,vector<vector<int>> &dp)
-    {
-        if(r<0 || r>n || c<0 || c>n)
-        return 0;
-        if(r==n)
-        {
-            return m[n][c];
-        }
-        if(dp[r][c]!=-1)return dp[r][c];
-        int left=m[r][c]+f(r+1,c,n,m,dp);
-        int diag=m[r][c]+f(r+1,c-1,n,m,dp);
-        int down=m[r][c]+f(r+1,c+1,n,m,dp);
+   //recursive+memoize
+    // int f(int r,int c,int n,vector<vector<int>> m,vector<vector<int>> &dp)
+    // {
+    //     if(r<0 || r>n || c<0 || c>n)
+    //     return 0;
+    //     if(r==n)
+    //     {
+    //         return m[n][c];
+    //     }
+    //     if(dp[r][c]!=-1)return dp[r][c];
+    //     int left=m[r][c]+f(r+1,c,n,m,dp);
+    //     int diag=m[r][c]+f(r+1,c-1,n,m,dp);
+    //     int down=m[r][c]+f(r+1,c+1,n,m,dp);
         
-        return dp[r][c]=max(left,max(diag,down));
+    //     return dp[r][c]=max(left,max(diag,down));
         
-    }
+    // }
     int maximumPath(int n, vector<vector<int>> m)
     {
         // code here
