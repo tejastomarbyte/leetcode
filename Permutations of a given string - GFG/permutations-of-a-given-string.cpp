@@ -7,20 +7,19 @@ class Solution
 {
 	public:
 	
-	    void permute(vector<string> &ans,string s,int l,int r)
+	    void permute(vector<string> &ans,string s,int l)
 	    {
-	        if(l==r)
+	        if(l==s.length())
 	        {
 	            ans.push_back(s);
 	        }
 	        else
 	        {
-	            for(int i=l;i<=r;i++)
+	            for(int i=l;i<s.length();i++)
 	            {
 	                
 	                swap(s[l],s[i]);
-	                
-	                permute(ans,s,l+1,r);
+	                permute(ans,s,l+1);
 	                swap(s[l],s[i]);
 	            }
 	        }
@@ -30,7 +29,7 @@ class Solution
 		{
 		    // Code here there
 		    vector<string> ans;
-		    permute(ans,s,0,s.length()-1);
+		    permute(ans,s,0);
 		    sort(ans.begin(),ans.end());
 		    return ans;
 		}
