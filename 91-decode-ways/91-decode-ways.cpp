@@ -2,13 +2,7 @@ class Solution {
 public:
     int f(string s,int i,vector<int> &dp)
     {
-        if(i==s.length()-1)
-        {
-            if(s[i]=='0')
-                return 0;
-            else
-                return 1;
-        }
+        if(i==s.length()-1)return (s[i] > '0') ? 1 : 0 ;
         if(i>=s.length())
             return 1;
         if(s[i]=='0')return 0;
