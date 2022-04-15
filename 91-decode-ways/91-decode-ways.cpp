@@ -27,8 +27,7 @@ public:
         return dp[i]=l+r;
     }
     int numDecodings(string s) {
-        ios_base::sync_with_stdio(false);
-        cin.tie(nullptr);
+
         vector<int>dp(s.length(),-1);
         int ans=f(s,0,dp);
         return ans;
