@@ -31,7 +31,7 @@ public:
         
     }
     int sumRootToLeaf(TreeNode* root) {
-        int ans=f(root,0);
-        return ans;
+        return f(root,0);
+        // return ans;
     }
 };
