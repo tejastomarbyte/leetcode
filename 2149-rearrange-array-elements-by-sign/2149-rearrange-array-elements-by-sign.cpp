@@ -1,6 +1,7 @@
 class Solution {
 public:
     vector<int> rearrangeArray(vector<int>& nums) {
+        ios_base::sync_with_stdio(false);
         vector<int>pos,neg;
         for(int i=0;i<nums.size();i++)
         {
