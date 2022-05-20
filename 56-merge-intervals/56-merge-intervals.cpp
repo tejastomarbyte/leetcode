@@ -1,9 +1,6 @@
 class Solution {
 public:
-    static bool comp(vector<int>v,vector<int>q)
-    {
-        return v[0]<q[0];
-    }
+    
     vector<vector<int>> merge(vector<vector<int>>& in) {
         sort(in.begin(),in.end());
         int i=0;
