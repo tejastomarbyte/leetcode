@@ -10,46 +10,45 @@ class Solution {
 public:
     int length(ListNode* t)
     {
-        long long int l=0;
+        int l=0;
         while(t)
         {
-            l++;
             t=t->next;
+            l++;
         }
         return l;
-        
     }
-    ListNode *getIntersectionNode(ListNode *n1, ListNode *n2) {
-        int l1=length(n1),l2=length(n2);
-        ListNode *t1=n1,*t2=n2;
-        if(l1>l2)
+    ListNode *getIntersectionNode(ListNode *head1, ListNode *head2) {
+        int len1,len2;
+        len1=length(head1);
+        len2=length(head2);
+        if(len1==0 || len2==0)return nullptr;
+        if(len1>len2)
         {
-            while(l1>l2)
+            while(len1!=len2)
             {
-                t1=t1->next;
-                l1--;
+                len1--;
+                head1=head1->next;
             }
         }
-        else if(l1<l2)
+        else
         {
-            while(l1<l2)
+            while(len1!=len2)
             {
-                t2=t2->next;
-                l2--;
+                len2--;
+                head2=head2->next;
             }
-        }
-        while((t1!=t2) && t1!=nullptr)
+        } 
+        while(head1 && head2 && head1!=head2)
         {
-            t1=t1->next;
-            t2=t2->next;
+            
+            head1=head1->next;
+            head2=head2->next;
         }
-        if(t1!=NULL && t2!=NULL)
-            return t1;
-        else 
+        if(head1 && head2)
+            return head1;
+        else
             return nullptr;
-        
-        
-        
         
     }
 };
