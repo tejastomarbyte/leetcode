@@ -8,34 +8,35 @@ class Solution
 	public:
 	//Function to find the shortest distance of all the vertices
     //from the source vertex S.
-    vector <int> dijkstra(int v, vector<vector<int>> adj[], int s)
+    vector <int> dijkstra(int V,vector<vector<int>>adj[],int S)
     {
         // Code here
-        
-        vector<int> distance(v+1,INT_MAX);
-        priority_queue<pair<int,int>,vector<pair<int,int>>,greater<pair<int,int>>> pq; //min heap
-        
-        distance[s]=0; //dist to source node=0
-        pq.push(make_pair(0,s));
-        
-        while(!pq.empty())
-        {
-            int dist=pq.top().first;
-            int prev=pq.top().second;
-            
-            pq.pop();
-            
-            for(auto &it:adj[prev])
-            {
-                int curr_dist=dist+it[1];
-                if(curr_dist<distance[it[0]])
-                {
-                    distance[it[0]]=curr_dist;
-                    pq.push({curr_dist,it[0]});
-                }
-            }
-        }
-        return distance;
+        vector<bool> visited(V);
+       vector<int> distance(V);
+       for(int i=0; i<V; i++){
+           visited[i] = false;
+           distance[i] = INT_MAX;
+       }
+       distance[S] = 0;
+       int cnt = 0;
+       while(cnt < V){
+           int mini = INT_MAX, ind;
+           for(int i=0; i<V; i++){
+               if(!visited[i] && distance[i] < mini){
+                   mini = distance[i];
+                   ind = i;
+               }
+           }
+           visited[ind] = true;
+           for(auto ele : adj[ind]){
+               // if(!visited[ele[0]]){
+               int dist = distance[ind] + ele[1];
+               distance[ele[0]] = min(distance[ele[0]], dist);
+               // }
+           }
+           cnt++;
+       }
+       return distance;
     }
 };
 
