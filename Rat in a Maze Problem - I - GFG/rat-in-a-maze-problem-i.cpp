@@ -27,18 +27,11 @@ class Solution{
         return;
         
         m[i][j]=0;
-        temp.push_back('L');
-        f(m,i,j-1,n,ans,temp);
-        temp.pop_back();
-        temp.push_back('R');
-        f(m,i,j+1,n,ans,temp);
-        temp.pop_back();
-        temp.push_back('U');
-        f(m,i-1,j,n,ans,temp);
-        temp.pop_back();
-        temp.push_back('D');
-        f(m,i+1,j,n,ans,temp);
-        temp.pop_back();
+        f(m,i,j-1,n,ans,temp+'L');
+        f(m,i,j+1,n,ans,temp+'R');
+        f(m,i-1,j,n,ans,temp+'U');
+        f(m,i+1,j,n,ans,temp+'D');
+         
         
     }
     vector<string> findPath(vector<vector<int>> &m, int n) {
