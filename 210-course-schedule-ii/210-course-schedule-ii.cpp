@@ -1,41 +1,52 @@
 class Solution {
 public:
-    
-    vector<int> findOrder(int n, vector<vector<int>>& prerequisites) {
-        queue<int>q;
-        vector<int> g[n];
-        vector<int>v(n,0);
-        for(int i=0;i<prerequisites.size();i++)
+    vector<int> findOrder(int n, vector<vector<int>>& pre) {
+        vector<int>indeg(n,0);
+        
+        vector<int>adj[n];
+        
+        for(int i=0;i<pre.size();i++)
         {
-            g[prerequisites[i][0]].push_back(prerequisites[i][1]);
-            v[prerequisites[i][1]]++;
+            adj[pre[i][0]].push_back(pre[i][1]);
+            indeg[pre[i][1]]++;
         }
-        for(int i=0;i<n;i++)if(v[i]==0)q.push(i);
+        
+        
+        queue<int>q;
+        
+        for(int i=0;i<n;i++)
+        {
+            if(indeg[i]==0)
+                q.push(i);
+        }
+        
+        vector<int>topo1,topo2;
         int count=0;
-        vector<int>topo;
-        vector<int>topo1;
         while(!q.empty())
         {
             int node=q.front();
             q.pop();
+            topo1.push_back(node);
             count++;
-            topo.push_back(node);
-            for(auto it:g[node])
+            for(auto it:adj[node])
             {
-                v[it]--;
-                if(v[it]==0)
+                indeg[it]--;
+                if(indeg[it]==0)
                     q.push(it);
             }
         }
-        if(count!=n)
-            return topo1;
         
-        for(int i=0;i<topo.size()/2;i++)
+        if(count!=n)
+            return topo2;
+        
+        for(int i=0;i<n/2;i++)
         {
-            int c=topo[i];
-            topo[i]=topo[topo.size()-i-1];
-            topo[topo.size()-i-1]=c;
+            int t=topo1[i];
+            topo1[i]=topo1[n-i-1];
+            topo1[n-i-1]=t;
         }
-        return topo;
+        
+        return topo1;
+        
     }
 };
