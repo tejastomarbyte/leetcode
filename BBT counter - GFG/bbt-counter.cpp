@@ -21,7 +21,17 @@ class Solution {
         // code here
         vector<ll>dp(h+1,-1);
         
-        return f(h,dp);
+        dp[0]=1;
+        dp[1]=1;
+        if(h==1 || h==0)
+        return 1;
+        for(int i=2;i<=h;i++)
+        {
+            dp[i]=(dp[i-1]*(dp[i-1]+2*dp[i-2]))%mod;
+        }
+        
+        return dp[h];
+        
     }
 };
 
