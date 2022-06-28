@@ -7,7 +7,7 @@ public:
             m[i]++;
         }
         
-        set<int>s;
+        unordered_set<int>s;
         int count=0;
         for(auto it=m.begin();it!=m.end();it++)
         {
