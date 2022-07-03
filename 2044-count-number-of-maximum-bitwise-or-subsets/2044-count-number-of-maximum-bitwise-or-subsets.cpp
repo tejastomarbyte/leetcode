@@ -9,8 +9,6 @@ public:
                count++;
             return;
         }
-        if(temp>ans)
-            return;
         f(nums,i+1,ans,temp|nums[i]);
         
         f(nums,i+1,ans,temp);
