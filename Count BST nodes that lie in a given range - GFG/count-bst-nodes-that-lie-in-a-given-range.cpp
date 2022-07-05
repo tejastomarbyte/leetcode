@@ -97,7 +97,14 @@ public:
       if(root->data>=l && root->data<=h)
       ans=1;
       
-      int temp=getCount(root->left,l,h)+getCount(root->right,l,h);
+      int temp=0;
+      if(root->data>=l && root->data<=h)
+      temp=getCount(root->left,l,h)+getCount(root->right,l,h);
+      
+      else if(root->data<l)
+      temp=getCount(root->right,l,h);
+      else if(root->data>h)
+      temp=getCount(root->left,l,h);
       
       return ans+temp;
       
