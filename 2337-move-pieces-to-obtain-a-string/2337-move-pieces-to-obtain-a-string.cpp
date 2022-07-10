@@ -1,7 +1,6 @@
 class Solution {
 public:
     bool canChange(string s, string t) {
-        vector<int>a,b;
         int i=0,n=s.length(),j=0;
         while(i<n && j<n)
         {
