@@ -11,23 +11,38 @@
  */
 class Solution {
 public:
-    int maxlev=0;
-    void f(TreeNode* root,int curlev,vector<int>&ans)
-    {
-        if(!root)return;
-        if(curlev>maxlev)//current level is more than the maximum level we have transversed
-        {
-            ans.push_back(root->val);
-            maxlev++;
-        }
-        curlev+=1;
-        f(root->right,curlev,ans);
-        f(root->left,curlev,ans);
-    }
     vector<int> rightSideView(TreeNode* root) {
+        int curlev=0,maxlev=-1;
+        
+        queue<TreeNode*>q;
+        q.push(root);
         vector<int>ans;
-        int cur=1,maxi=0;
-        f(root,cur,ans);
+        if(!root)
+            return ans;
+        while(!q.empty())
+        {
+            int size=q.size();
+            
+            while(size--)
+            {
+                TreeNode* node=q.front();
+                q.pop();
+                if(maxlev<curlev)
+                {
+                    maxlev=curlev;
+                    ans.push_back(node->val);
+                }
+                
+                
+                if(node->right)
+                    q.push(node->right);
+                if(node->left)
+                    q.push(node->left);
+                
+                
+            }
+            curlev++;
+        }
         return ans;
     }
 };
