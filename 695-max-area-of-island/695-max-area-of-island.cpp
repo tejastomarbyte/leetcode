@@ -1,13 +1,14 @@
 class Solution {
 public:
-    vector<pair<int,int>>d={{0,1},{0,-1},{1,0},{-1,0}};
+    vector<pair<int,int>>d={{-1,0},{1,0},{0,1},{0,-1}};
     int dfs(vector<vector<int>>&grid,int i,int j)
     {
         if(i<0 or j<0 or i>grid.size()-1 or j>grid[0].size()-1 or grid[i][j]==0)
             return 0;
         
-        int ans=1;
         grid[i][j]=0;
+        int ans=1;
+        
         for(int k=0;k<4;k++)
         {
             ans+=dfs(grid,i+d[k].first,j+d[k].second);
