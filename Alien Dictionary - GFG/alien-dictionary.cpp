@@ -1,10 +1,10 @@
-// { Driver Code Starts
+//{ Driver Code Starts
 // Initial Template for C++
 
 #include <bits/stdc++.h>
 using namespace std;
 
- // } Driver Code Ends
+// } Driver Code Ends
 // User function Template for C++
 
 class Solution{
@@ -12,65 +12,56 @@ class Solution{
     string findOrder(string dict[], int n, int k) {
         //code here
         vector<int>adj[k];
+        
         for(int i=0;i<n-1;i++)
         {
-            string a=dict[i];
-            string b=dict[i+1];
-            
-            for(int j=0;j<min(a.length(),b.length());j++)
+            string t1=dict[i],t2=dict[i+1];
+            for(int j=0;j<min(t1.length(),t2.length());j++)
             {
-                if(a[j]!=b[j])
+                if(t1[j]!=t2[j])
                 {
-                    adj[a[j]-'a'].push_back(b[j]-'a');
-                    
+                    adj[t1[j]-'a'].push_back(t2[j]-'a');
                     break;
                 }
             }
         }
-        vector<int>indeg(k,0);
         
+        vector<int>ind(k,0);
         for(int i=0;i<k;i++)
         {
             for(auto it:adj[i])
-            {
-                indeg[it]++;
-            }
+            ind[it]++;
         }
         
         queue<int>q;
         for(int i=0;i<k;i++)
-        if(indeg[i]==0)
-        q.push(i);
-        vector<int>vis(k,0);
-        string ans;
-        
-        
-                
+        {
+            if(ind[i]==0)
+            q.push(i);
+        }
+        vector<char>topo;
         while(!q.empty())
         {
             int node=q.front();
             q.pop();
-            
-            ans.push_back(node+'a');
-            
+            topo.push_back('a'+node);
             for(auto it:adj[node])
             {
-                indeg[it]--;
-                if(indeg[it]==0)
-                q.push(it);
+                ind[it]--;
+                if(!ind[it])
+                {
+                    q.push(it);
+                }
             }
-            
         }
-            
-        
-        
-        
-        
-        return ans;
+        string t;
+        for(auto it:topo)
+        t.push_back(it);
+        return t;
     }
 };
 
-// { Driver Code Starts.
+//{ Driver Code Starts.
 string order;
 bool f(string a, string b) {
     int p1 = 0;
@@ -115,4 +106,5 @@ int main() {
     }
     return 0;
 }
-  // } Driver Code Ends
+
+// } Driver Code Ends
