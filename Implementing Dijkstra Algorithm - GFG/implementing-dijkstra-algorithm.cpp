@@ -1,47 +1,54 @@
-// { Driver Code Starts
+//{ Driver Code Starts
 #include<bits/stdc++.h>
 using namespace std;
 
- // } Driver Code Ends
+// } Driver Code Ends
 class Solution
 {
 	public:
 	//Function to find the shortest distance of all the vertices
     //from the source vertex S.
-    vector <int> dijkstra(int V,vector<vector<int>>adj[],int S)
+    vector <int> dijkstra(int V, vector<vector<int>> adj[], int S)
     {
         // Code here
-        vector<bool> visited(V);
-       vector<int> distance(V);
-       for(int i=0; i<V; i++){
-           visited[i] = false;
-           distance[i] = INT_MAX;
-       }
-       distance[S] = 0;
-       int cnt = 0;
-       while(cnt < V){
-           int mini = INT_MAX, ind;
-           for(int i=0; i<V; i++){
-               if(!visited[i] && distance[i] < mini){
-                   mini = distance[i];
-                   ind = i;
-               }
-           }
-           visited[ind] = true;
-           for(auto ele : adj[ind]){
-               // if(!visited[ele[0]]){
-               int dist = distance[ind] + ele[1];
-               distance[ele[0]] = min(distance[ele[0]], dist);
-               // }
-           }
-           cnt++;
-       }
-       return distance;
+        set<pair<int,int>> st; 
+        vector<int> dist(V, 1e9); 
+        
+        st.insert({0, S}); 
+
+        // Source initialised with dist=0
+        dist[S] = 0;
+        while(!st.empty()) {
+            auto it = *(st.begin()); 
+            int node = it.second; 
+            int dis = it.first; 
+            st.erase(it); 
+            
+            // Check for all adjacent nodes of the erased
+            // element whether the prev dist is larger than current or not.
+            for(auto it : adj[node]) {
+                int adjNode = it[0]; 
+                int edgW = it[1]; 
+                
+                if(dis + edgW < dist[adjNode]) {
+                    // erase if it was visited previously at 
+                    // a greater cost.
+                    if(dist[adjNode] != 1e9) 
+                        st.erase({dist[adjNode], adjNode}); 
+                        
+                    // If current distance is smaller,
+                    // push it into the queue
+                    dist[adjNode] = dis + edgW; 
+                    st.insert({dist[adjNode], adjNode}); 
+                 }
+            }
+        }
+        return dist;
     }
 };
 
 
-// { Driver Code Starts.
+//{ Driver Code Starts.
 
 
 int main()
@@ -78,4 +85,5 @@ int main()
     return 0;
 }
 
-  // } Driver Code Ends
+
+// } Driver Code Ends
